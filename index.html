@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Fichas Interactivas - CAA y Desarrollo del Lenguaje</title>
+  
+  <!-- Optimización iPad y dispositivos táctiles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#4a90e2">
+  
+  <!-- Tipografía amigable para alfabetización infantil -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Hoja de estilos -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Contenedor Principal de la App -->
+  <div id="app" class="app-root">
+    
+    <!-- Barra Superior de Navegación -->
+    <header class="top-nav" id="top-nav">
+      <button id="btn-home" class="nav-btn btn-home" aria-label="Volver al Menú" title="Volver al Menú">
+        <span class="icon">🏠</span>
+        <span class="label">Menú</span>
+      </button>
+
+      <div class="mode-info">
+        <span id="mode-badge" class="badge-mode">Fichas Interactivas</span>
+        <div id="progress-indicators" class="progress-dots"></div>
+      </div>
+
+      <div class="nav-actions">
+        <button id="btn-repeat-audio" class="nav-btn btn-audio" aria-label="Repetir Audio" title="Repetir consigna en voz alta">
+          <span class="icon">🔊</span>
+          <span class="label">Escuchar</span>
+        </button>
+
+        <button id="btn-toggle-tray" class="nav-btn btn-tray" aria-label="Fichas de apoyo" title="Ver/Ocultar fichas digitales de apoyo">
+          <span class="icon">🧩</span>
+          <span class="label">Fichas</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==============================================
+         PANTALLA 1: MENÚ PRINCIPAL
+         ============================================== -->
+    <main id="screen-menu" class="screen screen-menu active">
+      <div class="menu-hero">
+        <div class="mascot-badge">✨🧒👧✨</div>
+        <h1 class="main-title">Aprende y Habla con Fichas</h1>
+        <p class="subtitle">Coloca tus fichas físicas sobre la pantalla del iPad</p>
+      </div>
+
+      <div class="menu-cards-container">
+        <!-- Tarjeta Modo 1: Categorías -->
+        <button id="card-mode-categorias" class="mode-card card-categorias" type="button">
+          <div class="card-glow"></div>
+          <div class="card-icon-wrapper">
+            <span class="emoji-hero">🧩</span>
+            <div class="mini-slots-preview mini-3">
+              <span class="mini-slot slot-neutral">1</span>
+              <span class="mini-slot slot-neutral">2</span>
+              <span class="mini-slot slot-neutral">3</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="card-title">Identificar Categorías</h2>
+            <p class="card-desc">Explora 3 recuadros con Artículos, Familiares, Acciones y Objetos</p>
+            <div class="card-tags">
+              <span class="tag">Familia</span>
+              <span class="tag">Acciones</span>
+              <span class="tag">Objetos</span>
+              <span class="tag">Artículos</span>
+            </div>
+          </div>
+          <div class="card-action-cue">
+            <span class="play-icon">▶</span>
+          </div>
+        </button>
+
+        <!-- Tarjeta Modo 2: Oraciones -->
+        <button id="card-mode-oraciones" class="mode-card card-oraciones" type="button">
+          <div class="card-glow"></div>
+          <div class="card-icon-wrapper">
+            <span class="emoji-hero">🌈</span>
+            <div class="mini-slots-preview mini-4">
+              <span class="mini-slot slot-amarillo" title="Persona / Familiar">👤</span>
+              <span class="mini-slot slot-verde" title="Acción / Verbo">⚡</span>
+              <span class="mini-slot slot-azul" title="Artículo">🔹</span>
+              <span class="mini-slot slot-morado" title="Objeto / Complemento">📦</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="card-title">Formar Oraciones</h2>
+            <p class="card-desc">Construye frases completas usando el código estricto de 4 colores</p>
+            <div class="card-color-legend">
+              <span class="legend-dot dot-amarillo" title="Persona">Amarillo</span>
+              <span class="legend-dot dot-verde" title="Acción">Verde</span>
+              <span class="legend-dot dot-azul" title="Artículo">Azul</span>
+              <span class="legend-dot dot-morado" title="Objeto">Morado</span>
+            </div>
+          </div>
+          <div class="card-action-cue">
+            <span class="play-icon">▶</span>
+          </div>
+        </button>
+      </div>
+
+      <footer class="menu-footer">
+        <p class="hint-text">💡 Diseñado para usar con fichas físicas sobre el cristal del iPad</p>
+      </footer>
+    </main>
+
+    <!-- ==============================================
+         PANTALLA 2: PANTALLA DE JUEGO (CATEGORÍAS / ORACIONES)
+         ============================================== -->
+    <main id="screen-game" class="screen screen-game">
+      
+      <!-- Área Superior de Estímulo -->
+      <section class="stimulus-section" id="stimulus-section">
+        
+        <!-- Contenedor de Imagen de Apoyo (Para Oraciones o Icono Categoría) -->
+        <div class="stimulus-visual-box" id="stimulus-visual-box">
+          <img id="stimulus-img" src="papa_riega.png" alt="Imagen de apoyo para la actividad" class="stimulus-image">
+          <div id="stimulus-category-icon" class="category-icon-fallback" style="display: none;">🧩</div>
+        </div>
+
+        <!-- Texto de Consigna y Botón de Audio Grande -->
+        <div class="stimulus-details">
+          <div class="consigna-header">
+            <span class="consigna-badge" id="consigna-badge">RETO ACTIVO</span>
+            <span class="target-category-label" id="target-category-label"></span>
+          </div>
+          <h2 class="consigna-text" id="consigna-text">Mira la imagen y coloca tus fichas físicas:</h2>
+          
+          <div class="stimulus-actions">
+            <button id="btn-consigna-speaker" class="btn-speaker-bubble" aria-label="Escuchar consigna">
+              <span class="speaker-icon">🔊</span>
+              <span class="speaker-text" id="speaker-text">Escuchar la consigna</span>
+              <span class="audio-waves">
+                <span class="bar b1"></span>
+                <span class="bar b2"></span>
+                <span class="bar b3"></span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Área de Cuadrados Interactivos (Slots para fichas físicas) -->
+      <section class="slots-section" id="slots-section">
+        <div class="slots-guide-banner">
+          <span class="guide-icon">👇</span>
+          <span class="guide-text" id="guide-text">Coloca tus fichas físicas sobre cada recuadro:</span>
+        </div>
+
+        <!-- Contenedor dinámico de los slots (3 o 4) -->
+        <div class="slots-grid" id="slots-grid">
+          <!-- Inyectado dinámicamente según el modo (Categorías u Oraciones) -->
+        </div>
+      </section>
+
+      <!-- Bandeja Opcional de Fichas Virtuales de Apoyo (Ocultable) -->
+      <section class="virtual-tray collapsed" id="virtual-tray">
+        <div class="tray-header">
+          <span class="tray-title">🧩 Fichas virtuales de apoyo (para probar o sin fichas físicas):</span>
+          <button id="btn-close-tray" class="btn-tray-close" aria-label="Ocultar fichas">✕</button>
+        </div>
+        <div class="tray-tiles-list" id="tray-tiles-list">
+          <!-- Fichas generadas dinámicamente con pictogramas ARASAAC -->
+        </div>
+      </section>
+
+      <!-- Barra Inferior de Acción y Validación -->
+      <footer class="game-bottom-bar">
+        <button id="btn-clear-slots" class="btn-action-secondary" title="Limpiar recuadros">
+          <span class="btn-icon">🔄</span>
+          <span class="btn-text">Reiniciar</span>
+        </button>
+
+        <button id="btn-comprobar" class="btn-action-comprobar pulse-attention" aria-label="Comprobar actividad">
+          <span class="btn-sparkle">✨</span>
+          <span class="btn-main-text">¡COMPROBAR!</span>
+          <span class="btn-sparkle">✨</span>
+        </button>
+
+        <button id="btn-hint-tts" class="btn-action-secondary" title="Pista de voz">
+          <span class="btn-icon">💡</span>
+          <span class="btn-text">Pista</span>
+        </button>
+      </footer>
+
+    </main>
+
+    <!-- ==============================================
+         MODAL DE FELICITACIÓN Y DESAFÍO VOCAL
+         ============================================== -->
+    <div id="modal-felicitacion" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <!-- Canvas de Confeti animado -->
+      <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+      <div class="modal-card">
+        
+        <!-- Encabezado de Celebración -->
+        <div class="modal-header">
+          <div class="modal-trophy">🌟🏆🌟</div>
+          <h2 id="modal-title" class="modal-title">¡EXCELENTE TRABAJO!</h2>
+          <p class="modal-subtitle">Has colocado correctamente las fichas</p>
+        </div>
+
+        <!-- Desafío Vocal para el Niño -->
+        <div class="vocal-challenge-box">
+          <div class="challenge-label">🗣️ AHORA REPITE CON TU VOZ:</div>
+          <div class="target-speech-phrase" id="target-speech-phrase">
+            "PAPÁ RIEGA LAS PLANTAS"
+          </div>
+          <div class="target-speech-breakdown" id="target-speech-breakdown">
+            <!-- Palabras desglosadas con sus colores/pictogramas -->
+          </div>
+        </div>
+
+        <!-- Indicador de Grabación y Detección Automática -->
+        <div class="mic-status-container" id="mic-status-container">
+          
+          <div class="mic-indicator-wrapper" id="mic-indicator-wrapper">
+            <div class="mic-pulse-ring ring-1"></div>
+            <div class="mic-pulse-ring ring-2"></div>
+            <div class="mic-bubble" id="mic-bubble">
+              <span class="mic-emoji">🎙️</span>
+            </div>
+          </div>
+
+          <div class="mic-info">
+            <div class="mic-status-text" id="mic-status-text">Escuchando la voz del niño...</div>
+            <div class="mic-subtext" id="mic-subtext">¡Habla cerquita del iPad!</div>
+          </div>
+
+          <!-- Visualizador de ondas de sonido -->
+          <canvas id="audio-waveform-canvas" class="audio-waveform" width="240" height="40"></canvas>
+        </div>
+
+        <!-- Sección de Recompensa: Modulación de Voz -->
+        <div class="voice-reward-section" id="voice-reward-section">
+          <div class="reward-title">
+            <span>🎉 ¡Escucha cómo suena tu voz!</span>
+          </div>
+
+          <div class="modulation-buttons-grid">
+            <!-- Botón Voz Helio (Agudo x1.4) -->
+            <button id="btn-voice-helio" class="btn-voice-effect btn-helio active-effect" type="button">
+              <span class="effect-emoji">🎈</span>
+              <div class="effect-text">
+                <span class="effect-name">Voz de Helio</span>
+                <span class="effect-tag">¡Súper Aguda! (1.4x)</span>
+              </div>
+              <span class="effect-play-indicator">▶</span>
+            </button>
+
+            <!-- Botón Voz Grave (Oso x0.7) -->
+            <button id="btn-voice-grave" class="btn-voice-effect btn-grave" type="button">
+              <span class="effect-emoji">🐻</span>
+              <div class="effect-text">
+                <span class="effect-name">Voz de Oso</span>
+                <span class="effect-tag">¡Súper Grave! (0.7x)</span>
+              </div>
+              <span class="effect-play-indicator">▶</span>
+            </button>
+
+            <!-- Botón Voz Normal (x1.0) -->
+            <button id="btn-voice-normal" class="btn-voice-effect btn-normal" type="button">
+              <span class="effect-emoji">🗣️</span>
+              <div class="effect-text">
+                <span class="effect-name">Voz Normal</span>
+                <span class="effect-tag">Tu voz natural (1.0x)</span>
+              </div>
+              <span class="effect-play-indicator">▶</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Acciones del Modal -->
+        <div class="modal-footer-actions">
+          <!-- Botón de supervisión adulta para saltar si el niño no habla -->
+          <button id="btn-bypass-audio" class="btn-adult-bypass" type="button">
+            <span>👨‍👧 Aceptar sin audio</span>
+          </button>
+
+          <!-- Botón Siguiente Reto -->
+          <button id="btn-next-challenge" class="btn-next-challenge" type="button">
+            <span class="next-label">Siguiente Reto</span>
+            <span class="next-icon">➡️</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Lógica de la aplicación -->
+  <script src="app.js"></script>
+</body>
+</html>
